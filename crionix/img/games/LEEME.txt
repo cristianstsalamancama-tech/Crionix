@@ -1,0 +1,15 @@
+Coloca aquí las portadas de los juegos con estos nombres exactos (formato .jpg):
+
+elden-ring.jpg
+gta-v.jpg
+red-dead-redemption-2.jpg
+cyberpunk-2077.jpg
+zelda-totk.jpg
+god-of-war-ragnarok.jpg
+minecraft.jpg
+stardew-valley.jpg
+hollow-knight.jpg
+baldurs-gate-3.jpg
+
+Si una imagen no existe, la página muestra automáticamente la carátula de respaldo.
+Proporción recomendada: 460x215 px (horizontal) o similar.

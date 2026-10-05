@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CRIONIX — Tienda de videojuegos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="img/logo.jpg">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo"><img src="img/logo.jpg" alt="Crionix"></a>
+    <nav class="links">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#pqr">PQR</a>
+      <a href="#" id="ordersLink">Mis pedidos</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" id="cartBtn" aria-label="Carrito">
+        🛒<span class="badge" id="cartBadge" style="display:none">0</span>
+      </button>
+      <div id="authArea"></div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Tienda gamer · Colombia</div>
+      <h1>Juega más.<br>Paga menos.<br><em>Crionix.</em></h1>
+      <p>Catálogo real, precios en pesos colombianos y checkout en menos de un minuto. Crea tu cuenta, arma tu carrito y ponte a jugar hoy mismo.</p>
+      <div class="hero-actions">
+        <a href="#catalogo" class="btn btn-primary">Explorar catálogo</a>
+        <button class="btn btn-ghost" id="openRegisterHero">Crear cuenta</button>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b id="statGames">10</b><span>Juegos disponibles</span></div>
+        <div class="stat"><b>100%</b><span>Pago en línea</span></div>
+        <div class="stat"><b>24/7</b><span>Radicación de PQR</span></div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="tile" id="heroTile"></div>
+      <h3 id="heroTitle"></h3>
+      <div class="meta" id="heroMeta"></div>
+      <div class="card-foot">
+        <span class="price-tag" id="heroPrice"></span>
+        <button class="btn btn-primary" id="heroAdd">Agregar</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="catalogo">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Catálogo</h2>
+        <p>Diez títulos reales, de indies premiados a los lanzamientos AAA más pedidos.</p>
+      </div>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="section" id="pqr" style="background:var(--bg-panel);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Peticiones, quejas y reclamos</h2>
+        <p>Radica tu PQR y haz seguimiento con el número de ticket que te entregamos al instante.</p>
+      </div>
+    </div>
+    <div class="pqr-wrap">
+      <form id="pqrForm">
+        <div class="field">
+          <label for="pqrTipo">Tipo de solicitud</label>
+          <select id="pqrTipo" required>
+            <option value="">Selecciona una opción</option>
+            <option value="Petición">Petición</option>
+            <option value="Queja">Queja</option>
+            <option value="Reclamo">Reclamo</option>
+            <option value="Sugerencia">Sugerencia</option>
+          </select>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="pqrNombre">Nombre completo</label>
+            <input type="text" id="pqrNombre" required>
+          </div>
+          <div class="field">
+            <label for="pqrCorreo">Correo electrónico</label>
+            <input type="email" id="pqrCorreo" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="pqrAsunto">Asunto</label>
+          <input type="text" id="pqrAsunto" required>
+        </div>
+        <div class="field">
+          <label for="pqrDetalle">Describe tu solicitud</label>
+          <textarea id="pqrDetalle" required></textarea>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">Enviar PQR</button>
+      </form>
+      <div>
+        <div class="pqr-note">Tiempo estimado de respuesta: 15 días hábiles para peticiones y reclamos, 10 días hábiles para quejas y sugerencias, según lo dispuesto por la normativa de protección al consumidor. Esta demo guarda tus tickets únicamente en este navegador.</div>
+        <h3 style="font-size:18px;margin-top:22px;">Tus tickets</h3>
+        <div class="ticket-list" id="ticketList"><p style="color:var(--text-mute);font-size:14px;">Aún no has radicado ninguna solicitud.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo footer-logo"><img src="img/logo.jpg" alt="Crionix"></div>
+    <div>© 2026 Crionix · Demo funcional sin pasarela de pago real</div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h3 style="font-size:20px;">Tu carrito</h3>
+    <button class="modal-close" style="position:static" id="closeDrawer">✕</button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-foot" id="drawerFoot">
+    <div class="total-row"><span>Total</span><span id="drawerTotal">$0</span></div>
+    <button class="btn btn-primary btn-block" id="checkoutBtn">Proceder al pago</button>
+  </div>
+</aside>
+
+<!-- GAME DETAIL MODAL -->
+<div class="overlay" id="gdOverlay">
+  <div class="modal wide">
+    <button class="modal-close" id="gdClose">✕</button>
+    <div class="gd-tile" id="gdTile"></div>
+    <div class="gd-body">
+      <span class="genre-badge" id="gdGenre"></span>
+      <h2 id="gdTitle"></h2>
+      <div class="dev" id="gdDev"></div>
+      <p class="desc" id="gdDesc"></p>
+      <div class="gd-foot">
+        <div class="qty">
+          <button id="gdMinus">−</button><span id="gdQty">1</span><button id="gdPlus">+</button>
+        </div>
+        <span class="price-tag" id="gdPrice"></span>
+        <button class="btn btn-primary" id="gdAdd">Agregar al carrito</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="overlay" id="authOverlay">
+  <div class="modal">
+    <button class="modal-close" id="authClose">✕</button>
+    <div class="auth-head">
+      <div class="tabs">
+        <div class="tab active" data-tab="login">Iniciar sesión</div>
+        <div class="tab" data-tab="register">Registrarse</div>
+      </div>
+    </div>
+    <div class="auth-panel show" id="panel-login">
+      <div class="error-msg" id="loginError"></div>
+      <div class="field"><label>Correo electrónico</label><input type="email" id="loginEmail"></div>
+      <div class="field"><label>Contraseña</label><input type="password" id="loginPass"></div>
+      <button class="btn btn-primary btn-block" id="loginBtn">Entrar</button>
+    </div>
+    <div class="auth-panel" id="panel-register">
+      <div class="error-msg" id="regError"></div>
+      <div class="field"><label>Nombre completo</label><input type="text" id="regName"></div>
+      <div class="field"><label>Correo electrónico</label><input type="email" id="regEmail"></div>
+      <div class="field"><label>Contraseña</label><input type="password" id="regPass"></div>
+      <button class="btn btn-primary btn-block" id="regBtn">Crear cuenta</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="overlay" id="payOverlay">
+  <div class="modal">
+    <button class="modal-close" id="payClose">✕</button>
+    <div id="payContent" style="padding:26px;"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
